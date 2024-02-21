@@ -1,30 +1,18 @@
-def convert_int(number: int) -> "Book":
-    return float(number)
+def numSquares(n):
+    # Initialize an array to store the least number of perfect square numbers for each value up to n
+    dp = [float('inf')] * (n + 1)
+    dp[0] = 0  # 0 can be represented with 0 perfect squares
 
+    # Iterate through each number up to n
+    for i in range(1, n + 1):
+        # Check for each perfect square less than or equal to i
+        j = 1
+        while j * j <= i:
+            dp[i] = min(dp[i], dp[i - j * j] + 1)
+            j += 1
 
-class Employee:
+    return dp[n]
 
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def __repr__(self):
-        return f'Name is {self.name !r} and age {self.age}'
-
-    @classmethod
-    def new_name(cls, name, age):
-        return cls(name, age+10)
-
-
-class CatError(ValueError):
-    pass
-
-
-if __name__ == '__main__':
-    emp = Employee("su", 10)
-    print(emp)
-    emp = emp.new_name('js', 15)
-    print(emp)
-    from run_code import *
-    print_hi()
-    raise CatError
+# Example usage:
+print(numSquares(12))  # Output: 3
+print(numSquares(13))  # Output: 2
